@@ -1,0 +1,83 @@
+# Active Inference - CatColab Integration
+
+This project uses only real CatColab methods and APIs. No mocks, always use actual implementations.
+
+## Core Principles
+
+1. **Real Data Only**: All implementations use actual CatColab API methods from:
+   - `packages/frontend/src/api` - Frontend API classes and methods
+   - `packages/backend/src/rpc.rs` - Backend RPC handlers
+   - `catlog-wasm` - Real type definitions and document structures
+
+2. **CatColab API Methods**:
+   - `Api.createDoc()` - Create new documents
+   - `Api.getLiveDoc()` - Get live documents with reactive updates
+   - `Api.duplicateDoc()` - Duplicate existing documents
+   - `Api.getPermissions()` - Check document permissions
+   - `Api.rpc.*` - RPC methods for backend operations
+
+3. **Document Types**: Use real CatColab document structures:
+   - `Document` type from `catlog-wasm`
+   - `type: "model"` for models
+   - `type: "diagram"` for diagrams
+   - Real notebook cell structures with `tag: "formal"` and `tag: "rich_text"`
+
+4. **No Mocking**: Tests should use real CatColab structures. Integration tests require real backend.
+
+## File Structure
+
+- `src/catcolab_client.ts` - Wrapper around CatColab Api class
+- `src/model_builder.ts` - Build models using real CatColab Document structure
+- `src/diagram_builder.ts` - Build diagrams using real CatColab Document structure
+- `src/active_inference_example.ts` - Example implementations using real APIs
+
+## CatColab Theories
+
+Available theories (from CatColab stdlib):
+- `simple-schema` - Basic schema theory
+- `simple-olog` - Ontology logics
+- `primitive-stock-flow` - Stock and flow diagrams
+- `signed-category` - Signed categories for causal diagrams
+
+## Real Methods Reference
+
+### Creating Documents
+```typescript
+const doc: Document = {
+    name: "Model Name",
+    type: "model",
+    version: "1",
+    theory: "simple-schema",
+    notebook: { cellContents: {}, cellOrder: [] }
+};
+const refId = await api.createDoc(doc);
+```
+
+### Getting Documents
+```typescript
+const liveDoc = await api.getLiveDoc(refId, "model");
+// liveDoc.doc - reactive document data
+// liveDoc.changeDoc(fn) - make changes
+```
+
+### RPC Methods
+- `api.rpc.new_ref.mutate(content)` - Create document ref
+- `api.rpc.get_doc.query(refId)` - Get document
+- `api.rpc.search_ref_stubs.query(params)` - Search documents
+- `api.rpc.get_ref_children_stubs.query(refId)` - Get children
+
+## Testing
+
+- Use real CatColab Document structures in tests
+- Integration tests require actual CatColab backend
+- Unit tests verify structure correctness without backend
+- Always test with real types from `catlog-wasm`
+
+## Documentation
+
+All code must:
+- Use real CatColab types and methods
+- Document which CatColab API methods are being used
+- Include examples with actual CatColab structures
+- Reference real CatColab documentation at next.catcolab.org/dev
+

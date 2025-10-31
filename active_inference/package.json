@@ -1,0 +1,41 @@
+{
+    "name": "active-inference",
+    "version": "0.1.0",
+    "description": "Active Inference models using real CatColab APIs",
+    "type": "module",
+    "main": "src/index.ts",
+    "scripts": {
+        "test": "vitest run",
+        "test:watch": "vitest",
+        "test:ui": "vitest --ui",
+        "build": "tsc --noEmit",
+        "lint": "tsc --noEmit",
+        "typecheck": "tsc --noEmit",
+        "example": "tsx scripts/create_example_model.ts",
+        "setup": "bash scripts/setup.sh"
+    },
+    "dependencies": {
+        "catcolab-api": "link:../packages/backend/pkg",
+        "catlog-wasm": "link:../packages/catlog-wasm/dist/pkg-browser",
+        "@automerge/automerge-repo": "^2.2.0",
+        "@automerge/automerge-repo-network-websocket": "^2.2.0",
+        "@automerge/automerge-repo-storage-indexeddb": "^2.2.0",
+        "firebase": "^10.14.0",
+        "uuid": "^11.0.3",
+        "tiny-invariant": "^1.3.3"
+    },
+    "devDependencies": {
+        "@types/node": "^22.7.4",
+        "@types/uuid": "^10.0.0",
+        "@vitest/ui": "^3.2.4",
+        "typescript": "^5.2.2",
+        "tsx": "^4.16.5",
+        "vitest": "^3.2.4"
+    },
+    "keywords": [
+        "active-inference",
+        "catcolab",
+        "categorical-modeling"
+    ],
+    "license": "MIT"
+}

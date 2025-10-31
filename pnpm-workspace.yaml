@@ -1,4 +1,5 @@
 packages:
+  - "active_inference"
   - "dev-docs"
   - "packages/automerge-doc-server"
   - "packages/backend/pkg"
